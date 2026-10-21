@@ -13,6 +13,7 @@ public class AccountEventProducer implements EventProducer {
 
     @Override
     public void produce(String topic, BaseEvent event) {
-        this.kafkaTemplate.send(topic, event);
+        // La clave es el ID del agregado: todos los eventos de una cuenta van a la misma particion
+        this.kafkaTemplate.send(topic, event.getId(), event);
     }
 }
